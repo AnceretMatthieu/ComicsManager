@@ -11,14 +11,14 @@ using System;
 namespace ComicsManager.Model.Migrations
 {
     [DbContext(typeof(ComicsManagerContext))]
-    [Migration("20171128080929_Init")]
+    [Migration("20171208140351_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ComicsManager.Model.Models.Author", b =>
@@ -60,7 +60,11 @@ namespace ComicsManager.Model.Migrations
 
                     b.Property<Guid?>("DessinateurId");
 
-                    b.Property<Guid?>("EditeurId");
+                    b.Property<Guid?>("EditorId");
+
+                    b.Property<Guid?>("FileId");
+
+                    b.Property<Guid>("GenreId");
 
                     b.Property<string>("ISBN");
 
@@ -79,7 +83,11 @@ namespace ComicsManager.Model.Migrations
 
                     b.HasIndex("DessinateurId");
 
-                    b.HasIndex("EditeurId");
+                    b.HasIndex("EditorId");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("GenreId");
 
                     b.HasIndex("ScenaristeId");
 
@@ -103,6 +111,24 @@ namespace ComicsManager.Model.Migrations
                     b.ToTable("Editors");
                 });
 
+            modelBuilder.Entity("ComicsManager.Model.Models.File", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime>("ModifiedOn");
+
+                    b.Property<string>("Path");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("File");
+                });
+
             modelBuilder.Entity("ComicsManager.Model.Models.Genre", b =>
                 {
                     b.Property<Guid>("Id")
@@ -123,15 +149,24 @@ namespace ComicsManager.Model.Migrations
             modelBuilder.Entity("ComicsManager.Model.Models.Comic", b =>
                 {
                     b.HasOne("ComicsManager.Model.Models.Author", "Dessinateur")
-                        .WithMany()
+                        .WithMany("Dessinateurs")
                         .HasForeignKey("DessinateurId");
 
                     b.HasOne("ComicsManager.Model.Models.Editor", "Editeur")
                         .WithMany()
-                        .HasForeignKey("EditeurId");
+                        .HasForeignKey("EditorId");
+
+                    b.HasOne("ComicsManager.Model.Models.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
+                    b.HasOne("ComicsManager.Model.Models.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ComicsManager.Model.Models.Author", "Scenariste")
-                        .WithMany()
+                        .WithMany("Scenaristes")
                         .HasForeignKey("ScenaristeId");
                 });
 #pragma warning restore 612, 618

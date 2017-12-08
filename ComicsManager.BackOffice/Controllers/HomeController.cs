@@ -1,4 +1,5 @@
 ﻿using ComicsManager.BackOffice.Models;
+using ComicsManager.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,6 +7,12 @@ namespace ComicsManager.BackOffice.Controllers
 {
     public class HomeController : BaseController
     {
+        public HomeController(ComicsManagerContext context)
+            : base(context)
+        {
+
+        }
+
         public IActionResult Index()
         {
             return View();
