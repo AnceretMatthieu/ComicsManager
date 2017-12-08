@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using NLog.Web;
 using System;
 
-namespace ComicsManager
+namespace ComicsManager.API
 {
     public class Program
     {

@@ -1,5 +1,4 @@
-﻿using ComicsManager.API.Filters;
-using ComicsManager.Common;
+﻿using ComicsManager.Common;
 using ComicsManager.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,14 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore.Swagger;
 
-namespace ComicsManager.API
+namespace ComicsManager.BackOffice
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-
 
         public Startup(IConfiguration configuration)
         {
@@ -24,7 +21,7 @@ namespace ComicsManager.API
                 .AddEnvironmentVariables()
                 .Build();
         }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,12 +34,8 @@ namespace ComicsManager.API
 
             services.AddMvc(config =>
             {
-                config.Filters.Add(typeof(GlobalExceptionsFilter));
-            });
-
-            services.AddSwaggerGen(config =>
-            {
-                config.SwaggerDoc("v1", new Info { Title = "ComicsManager API Documentation", Version = "v1" });
+                // TODO
+                //config.Filters.Add(typeof(GlobalExceptionsFilter));
             });
         }
 
@@ -53,23 +46,22 @@ namespace ComicsManager.API
             {
                 log.AddConsole();
 
+                app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
-                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseMvc();
+            app.UseStaticFiles();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
+            app.UseMvc(routes =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "ComicsManager API Documentation");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ComicsManagerContext>();
-                dbContext.Database.Migrate();
-            }
         }
     }
 }
