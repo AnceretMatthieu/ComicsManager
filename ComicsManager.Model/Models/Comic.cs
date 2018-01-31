@@ -10,14 +10,17 @@ namespace ComicsManager.Model.Models
 
         public string ISBN { get; set; }
 
-        public int Cycle { get; set; }
+        public Nullable<int> Cycle { get; set; }
 
         public string Collection { get; set; }
 
-        public int Note { get; set; }
+        public Nullable<int> Note { get; set; }
 
-        public string Couverture { get; set; }
+        public Nullable<Guid> CouvertureId { get; set; }
 
+        public File Couverture { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime PublicationDate { get; set; }
 
 
@@ -37,7 +40,6 @@ namespace ComicsManager.Model.Models
 
         public Guid GenreId { get; set; }
 
-        [Required]
         public Genre Genre { get; set; }
 
        

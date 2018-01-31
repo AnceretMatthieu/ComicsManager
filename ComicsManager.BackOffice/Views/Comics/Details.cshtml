@@ -1,4 +1,4 @@
-﻿@model ComicsManager.Model.Models.Comic
+﻿@model ComicsManager.BackOffice.ViewModels.ComicViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,62 +11,62 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Comic.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Comic.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ISBN)
+            @Html.DisplayNameFor(model => model.Comic.ISBN)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ISBN)
+            @Html.DisplayFor(model => model.Comic.ISBN)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Cycle)
+            @Html.DisplayNameFor(model => model.Comic.Cycle)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Cycle)
+            @Html.DisplayFor(model => model.Comic.Cycle)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Collection)
+            @Html.DisplayNameFor(model => model.Comic.Collection)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Collection)
+            @Html.DisplayFor(model => model.Comic.Collection)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Note)
+            @Html.DisplayNameFor(model => model.Comic.Note)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Note)
+            @Html.DisplayFor(model => model.Comic.Note)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Couverture)
+            @Html.DisplayNameFor(model => model.Comic.Couverture)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Couverture)
+            <img style="max-width:100px;" src="@Model.CouvertureFileB64" />
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PublicationDate)
+            @Html.DisplayNameFor(model => model.Comic.PublicationDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PublicationDate)
+            @Html.DisplayFor(model => model.Comic.PublicationDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CreatedOn)
+            @Html.DisplayNameFor(model => model.Comic.CreatedOn)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CreatedOn)
+            @Html.DisplayFor(model => model.Comic.CreatedOn)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ModifiedOn)
+            @Html.DisplayNameFor(model => model.Comic.ModifiedOn)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ModifiedOn)
+            @Html.DisplayFor(model => model.Comic.ModifiedOn)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Comic.Id">Modifier</a> |
+    <a asp-action="Index">Retour à la liste</a>
 </div>

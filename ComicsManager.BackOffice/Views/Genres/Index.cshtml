@@ -1,47 +1,72 @@
 ﻿@model IEnumerable<ComicsManager.Model.Models.Genre>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Genres";
 }
-
-<h2>Index</h2>
-
+<h2>@ViewData["Title"]</h2>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-default">Nouveau</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedOn)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ModifiedOn)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedOn)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" title="Details" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" title="Modifier" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-id=@item.Id data-title="@item.Title"><span class="glyphicon glyphicon-trash"></span></button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div id="deleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Êtes-vous sur de vouloir supprimer l'élément : <b id="Title"></b></p>
+            </div>
+            <div class="modal-footer">
+                <form asp-controller="Genres" asp-action="Delete" method="post" class="form-inline" role="form">
+                    <input type="hidden" name="id" id="id">
+                    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash" style="vertical-align:middle;margin-top: -5px"></span> Supprimer</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        $(document).ready(function () {
+            $('#deleteModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var title = button.data('title');
+
+                $("#Title").text(title);
+                $("#id").val(id);
+            });
+        });
+    </script>
+}

@@ -6,5 +6,6 @@ namespace ComicsManager.Common
 {
     public class AppSettings
     {
+        public int LastItemNumberInHomePage { get; set; }
     }
 }

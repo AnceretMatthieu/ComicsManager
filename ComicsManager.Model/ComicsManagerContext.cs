@@ -18,6 +18,8 @@ namespace ComicsManager.Model
 
         public DbSet<Editor> Editors { get; set; }
 
+        public DbSet<File> Files { get; set; }
+
 
         public ComicsManagerContext(DbContextOptions<ComicsManagerContext> options)
             : base(options)

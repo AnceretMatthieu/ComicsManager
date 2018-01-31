@@ -35,6 +35,17 @@ namespace ComicsManager.API
 
             services.AddDbContext<ComicsManagerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ComicsManagerDatabase")));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                        builder =>
+                        {
+                            builder.AllowAnyOrigin()
+                                   .AllowAnyMethod()
+                                   .AllowAnyHeader();
+                        });
+            });
+
             services.AddMvc(config =>
             {
                 config.Filters.Add(typeof(GlobalExceptionsFilter));
@@ -56,6 +67,8 @@ namespace ComicsManager.API
                 app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
             }
+
+            app.UseCors("AllowAll");
 
             app.UseMvc();
 

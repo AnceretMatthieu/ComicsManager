@@ -1,10 +1,8 @@
 ﻿@model ComicsManager.Model.Models.Genre
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Genres - Détails";
 }
-
-<h2>Details</h2>
 
 <div>
     <h4>Genre</h4>
@@ -31,6 +29,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-default">Retour</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Sauvegarder</a>
 </div>

@@ -1,16 +1,14 @@
 ﻿@model ComicsManager.Model.Models.Comic
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Création d'une nouvelle bande-dessinée";
 }
 
-<h2>Create</h2>
-
-<h4>Comic</h4>
+<h4>@ViewData["Title"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -39,7 +37,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Couverture" class="control-label"></label>
-                <input asp-for="Couverture" class="form-control" />
+                <input asp-for="Couverture" type="file" name="couvertureFile" />
                 <span asp-validation-for="Couverture" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,26 +47,26 @@
             </div>
             <div class="form-group">
                 <label asp-for="Genre" class="control-label"></label>
-                <select asp-for="GenreId" asp-items="@(new SelectList(ViewBag.Genres, "Id", "Title"))">
-                    <option>Please select one</option>
+                <select asp-for="GenreId" asp-items="@(new SelectList(ViewBag.Genres, "Id", "Title"))" class="selectpicker">
+                    <option value="@Guid.Empty">Please select one</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Scenariste" class="control-label"></label>
-                <select asp-for="ScenaristeId" asp-items="@(new SelectList(ViewBag.Authors, "Id", "FullName"))">
-                    <option>Please select one</option>
+                <select asp-for="ScenaristeId" asp-items="@(new SelectList(ViewBag.Authors, "Id", "FullName"))" class="selectpicker">
+                    <option value="@Guid.Empty">Please select one</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Dessinateur" class="control-label"></label>
-                <select asp-for="DessinateurId" asp-items="@(new SelectList(ViewBag.Authors, "Id", "FullName"))">
-                    <option>Please select one</option>
+                <select asp-for="DessinateurId" asp-items="@(new SelectList(ViewBag.Authors, "Id", "FullName"))" class="selectpicker">
+                    <option value="@Guid.Empty">Please select one</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Editeur" class="control-label"></label>
-                <select asp-for="EditorId" asp-items="@(new SelectList(ViewBag.Editors, "Id", "Name"))">
-                    <option>Please select one</option>
+                <select asp-for="EditorId" asp-items="@(new SelectList(ViewBag.Editors, "Id", "Name"))" class="selectpicker">
+                    <option value="@Guid.Empty">Please select one</option>
                 </select>
             </div>
             <div class="form-group">
@@ -76,12 +74,29 @@
             </div>
         </form>
     </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <label class="control-label">Fichier</label>
+        <form asp-controller="Files" asp-action="Upload" asp-antiforgery="false" method="post" id="uploadForm" enctype="multipart/form-data" class="dropzone">
+            <div class="fallback">
+                <input name="file" type="file" />
+            </div>
+        </form>
+    </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+    Dropzone.options.dropzoneForm = {
+        paramName: "file",
+        maxFilesize: 20,
+        maxFiles: 1,
+        //acceptedFiles: "image/*"
+    };
+</script>
 }

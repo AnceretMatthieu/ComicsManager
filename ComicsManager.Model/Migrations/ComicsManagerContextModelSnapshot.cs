@@ -51,11 +51,11 @@ namespace ComicsManager.Model.Migrations
 
                     b.Property<string>("Collection");
 
-                    b.Property<string>("Couverture");
+                    b.Property<Guid?>("CouvertureId");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<int>("Cycle");
+                    b.Property<int?>("Cycle");
 
                     b.Property<Guid?>("DessinateurId");
 
@@ -69,7 +69,7 @@ namespace ComicsManager.Model.Migrations
 
                     b.Property<DateTime>("ModifiedOn");
 
-                    b.Property<int>("Note");
+                    b.Property<int?>("Note");
 
                     b.Property<DateTime>("PublicationDate");
 
@@ -79,6 +79,8 @@ namespace ComicsManager.Model.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CouvertureId");
 
                     b.HasIndex("DessinateurId");
 
@@ -119,13 +121,13 @@ namespace ComicsManager.Model.Migrations
 
                     b.Property<DateTime>("ModifiedOn");
 
-                    b.Property<string>("Path");
+                    b.Property<byte[]>("Path");
 
                     b.Property<string>("Type");
 
                     b.HasKey("Id");
 
-                    b.ToTable("File");
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("ComicsManager.Model.Models.Genre", b =>
@@ -147,6 +149,10 @@ namespace ComicsManager.Model.Migrations
 
             modelBuilder.Entity("ComicsManager.Model.Models.Comic", b =>
                 {
+                    b.HasOne("ComicsManager.Model.Models.File", "Couverture")
+                        .WithMany()
+                        .HasForeignKey("CouvertureId");
+
                     b.HasOne("ComicsManager.Model.Models.Author", "Dessinateur")
                         .WithMany("Dessinateurs")
                         .HasForeignKey("DessinateurId");

@@ -18,12 +18,14 @@ namespace ComicsManager.Model.Models
         /// Date de création de l'entité (pour le tracking)
         /// </summary>
         [Required]
+        [Display(Name = "Créé le")]
         public DateTime CreatedOn { get; set; }
 
         /// <summary>
         /// Date de modification de l'entité (pour le tracking)
         /// </summary>
         [Required]
+        [Display(Name = "Modifié le")]
         public DateTime ModifiedOn { get; set; }
     }
 }

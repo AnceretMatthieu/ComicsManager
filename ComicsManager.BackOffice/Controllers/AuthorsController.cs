@@ -1,7 +1,9 @@
-﻿using ComicsManager.Model;
+﻿using ComicsManager.Common;
+using ComicsManager.Model;
 using ComicsManager.Model.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,8 +12,10 @@ namespace ComicsManager.BackOffice.Controllers
 {
     public class AuthorsController : BaseController
     {
-        public AuthorsController(ComicsManagerContext context)
-            : base(context)
+        public AuthorsController(
+            ComicsManagerContext context,
+            IOptions<AppSettings> config)
+            : base(context, config)
         {
             
         }

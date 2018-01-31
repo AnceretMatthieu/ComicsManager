@@ -1,7 +1,9 @@
-﻿using ComicsManager.Model;
+﻿using ComicsManager.Common;
+using ComicsManager.Model;
 using ComicsManager.Model.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,8 +12,10 @@ namespace ComicsManager.BackOffice.Controllers
 {
     public class GenresController : BaseController
     {
-        public GenresController(ComicsManagerContext context)
-            : base(context)
+        public GenresController(
+            ComicsManagerContext context,
+            IOptions<AppSettings> config)
+            : base(context, config)
         {
             
         }
@@ -114,33 +118,27 @@ namespace ComicsManager.BackOffice.Controllers
             }
             return View(genre);
         }
-
-        // GET: Genres/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+                
+        // POST: Genres/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            if (id == null)
+            if(id == Guid.Empty)
             {
                 return NotFound();
             }
 
             var genre = await _context.Genres
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (genre == null)
+            if(genre == null)
             {
                 return NotFound();
             }
 
-            return View(genre);
-        }
-
-        // POST: Genres/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var genre = await _context.Genres.SingleOrDefaultAsync(m => m.Id == id);
             _context.Genres.Remove(genre);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

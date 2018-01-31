@@ -27,4 +27,16 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Ressources\Controllers\" />
+    <Folder Include="Ressources\ViewModels\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Ressources\Views\Shared\_Layout.fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
