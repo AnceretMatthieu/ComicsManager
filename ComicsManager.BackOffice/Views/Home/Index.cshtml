@@ -6,10 +6,20 @@
     <h3>Elements récents...</h3>
     <div class="col-md-3">
         <h4><a asp-controller="Comics" asp-action="Index">Bandes-dessinées</a></h4>        
-        <ul>
+        <ul style="list-style:none;padding:0;">
             @foreach (var comic in ViewBag.LastComics)
             {
-                <li><a asp-controller="Comics" asp-action="Details" asp-route-id="@comic.Id">@comic.Title</a></li>
+            <li>                
+                <div class="card">
+                    <a asp-controller="Comics" asp-action="Details" asp-route-id="@comic.Id">
+                        <img src="@comic.CouvertureFileB64" />
+                        <div class="container">
+                            <h4><b>@comic.Title</b></h4>
+                            <p>@comic.Genre</p>
+                        </div>
+                    </a>
+                </div>                
+            </li>
             }
         </ul>
     </div>

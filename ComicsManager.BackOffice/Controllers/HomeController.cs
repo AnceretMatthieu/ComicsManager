@@ -1,7 +1,11 @@
-﻿using ComicsManager.Common;
+﻿using ComicsManager.BackOffice.ViewModels.Home;
+using ComicsManager.Common;
 using ComicsManager.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ComicsManager.BackOffice.Controllers
@@ -18,10 +22,32 @@ namespace ComicsManager.BackOffice.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.LastComics = _context.Comics
+            var lastComics = new List<SimpleComicViewModel>();
+            var comics  = _context.Comics
+                .Include(c => c.Couverture)
+                .Include(c => c.Genre)
                 .OrderBy(c => c.CreatedOn)
                 .ThenBy(c => c.ModifiedOn)
                 .Take(_config.Value.LastItemNumberInHomePage);
+            foreach(var comic in comics)
+            {
+                var simpleComic = new SimpleComicViewModel
+                {
+                    Id = comic.Id,
+                    Title = comic.Title,
+                    Genre = comic.Genre.Title
+                };
+
+                if (comic.Couverture != null)
+                {
+                    string b64image = Convert.ToBase64String(comic.Couverture.Path);
+                    simpleComic.CouvertureFileB64 = string.Format("data:image/png;base64,{0}", b64image);
+                }
+
+                lastComics.Add(simpleComic);
+            }
+
+            ViewBag.LastComics = lastComics;
 
             ViewBag.LastAuthors = _context.Authors
                 .OrderBy(c => c.CreatedOn)
