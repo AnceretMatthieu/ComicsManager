@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<ComicsManager.Model.Models.Comic>
+
 @{
     ViewData["Title"] = "Bandes-dessinées";
 }
+
 <h2>@ViewData["Title"]</h2>
 <p>
     <a asp-action="Create" class="btn btn-default">Nouveau</a>
@@ -89,6 +91,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
     <script>

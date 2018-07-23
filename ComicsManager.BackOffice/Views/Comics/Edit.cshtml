@@ -1,12 +1,10 @@
 ﻿@model ComicsManager.Model.Models.Comic
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Modification";
 }
 
-<h2>Edit</h2>
-
-<h4>Comic</h4>
+<h2>@ViewData["Title"]</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -49,14 +47,14 @@
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Sauvegarder" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-default">Retour à la liste</a>
 </div>
 
 @section Scripts {

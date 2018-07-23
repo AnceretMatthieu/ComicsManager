@@ -1,14 +1,14 @@
 ﻿@model ComicsManager.Model.Models.Author
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Détails";
 }
 
-<h2>Details</h2>
+@* TODO: Revoir le layout et le style de la page de détails d'un auteur (sous forme de carte de visite par exemple ?) *@
 
-<div>
-    <h4>Author</h4>
-    <hr />
+<h2>@ViewData["Title"]</h2>
+<hr />
+<div>    
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -49,6 +49,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-default">Retour à la liste</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Modifier</a>
 </div>

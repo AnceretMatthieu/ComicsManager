@@ -8,11 +8,15 @@ namespace ComicsManager.Model.Models
     public class Author : BaseEntity
     {
         [Required]
+        [Display(Name = "Prénom")]
         public string FirstName { get; set; }
 
         [Required]
+        [Display(Name = "Nom")]
         public string LastName { get; set; }
 
+        [Display(Name = "Date de naissance")]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         public string Photo { get; set; }

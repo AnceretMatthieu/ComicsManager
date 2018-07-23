@@ -1,12 +1,10 @@
 ﻿@model ComicsManager.Model.Models.Genre
 
 @{
-    ViewData["Title"] = "Genre - Modifier";
+    ViewData["Title"] = "Modification";
 }
 
-<h2>Modification</h2>
-
-<h4>Genre</h4>
+<h2>@ViewData["Title"]</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,7 +24,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-default">Retour</a>
+    <a asp-action="Index" class="btn btn-default">Retour à la liste</a>
 </div>
 
 @section Scripts {

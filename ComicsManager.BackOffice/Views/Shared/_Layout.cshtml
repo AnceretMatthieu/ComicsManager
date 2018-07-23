@@ -30,13 +30,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ComicsManager.BackOffice</a>
+                <span class="navbar-brand">ComicsManager</span>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
+                    <li><a asp-area="" asp-controller="Comics" asp-action="Index">Bandes-dessinées</a></li>
+                    <li><a asp-area="" asp-controller="Authors" asp-action="Index">Auteurs</a></li>
+                    <li><a asp-area="" asp-controller="Editors" asp-action="Index">Editeurs</a></li>
+                    <li><a asp-area="" asp-controller="Genres" asp-action="Index">Genres</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">A propos</a></li>
                 </ul>
             </div>
         </div>
@@ -45,7 +48,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - ComicsManager.BackOffice</p>
+            <p>&copy; 2018 - ComicsManager.BackOffice</p>
         </footer>
     </div>
 

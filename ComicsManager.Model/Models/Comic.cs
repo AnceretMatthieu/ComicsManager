@@ -6,6 +6,7 @@ namespace ComicsManager.Model.Models
     public class Comic : BaseEntity
     {
         [Required]
+        [Display(Name = "Titre")]
         public string Title { get; set; }
 
         public string ISBN { get; set; }
@@ -21,6 +22,7 @@ namespace ComicsManager.Model.Models
         public File Couverture { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Date de publication")]
         public DateTime PublicationDate { get; set; }
 
 

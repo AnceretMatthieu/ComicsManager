@@ -119,35 +119,28 @@ namespace ComicsManager.BackOffice.Controllers
             return View(editor);
         }
 
-        // GET: Editors/Delete/5
+        // POST: Editors/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null)
+            if (id == Guid.Empty)
             {
                 return NotFound();
             }
 
-            var editor = await _context.Editors
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var editor = await _context.Editors.SingleOrDefaultAsync(m => m.Id == id);
             if (editor == null)
             {
                 return NotFound();
             }
 
-            return View(editor);
-        }
-
-        // POST: Editors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var editor = await _context.Editors.SingleOrDefaultAsync(m => m.Id == id);
             _context.Editors.Remove(editor);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-
+        
         private bool EditorExists(Guid id)
         {
             return _context.Editors.Any(e => e.Id == id);
