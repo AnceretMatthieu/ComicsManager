@@ -4,7 +4,6 @@ using ComicsManager.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +24,6 @@ namespace ComicsManager.BackOffice.Controllers
         {
             var lastComics = new List<SimpleComicViewModel>();
             var comics  = _context.Comics
-                .Include(c => c.Couverture)
                 .Include(c => c.Genre)
                 .OrderBy(c => c.CreatedOn)
                 .ThenBy(c => c.ModifiedOn)
@@ -36,14 +34,9 @@ namespace ComicsManager.BackOffice.Controllers
                 {
                     Id = comic.Id,
                     Title = comic.Title,
-                    Genre = comic.Genre.Title
+                    Genre = comic.Genre.Title,
+                    CouvertureFileId = comic.CouvertureId
                 };
-
-                if (comic.Couverture != null)
-                {
-                    string b64image = Convert.ToBase64String(comic.Couverture.Path);
-                    simpleComic.CouvertureFileB64 = string.Format("data:image/png;base64,{0}", b64image);
-                }
 
                 lastComics.Add(simpleComic);
             }

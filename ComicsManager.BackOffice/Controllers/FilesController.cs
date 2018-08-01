@@ -58,5 +58,22 @@ namespace ComicsManager.BackOffice.Controllers
 
             return Ok();
         }
+
+        public async Task<IActionResult> Get(Guid? id)
+        {
+            if(!id.HasValue || id.Value == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var file = await _context.Files.FindAsync(id);
+            if(file == null)
+            {
+                // TODO: Image par défaut ?
+                return NotFound();
+            }            
+
+            return File(file.Path, "image/png");
+        }
     }
 }

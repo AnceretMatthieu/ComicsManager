@@ -2,33 +2,45 @@
     ViewData["Title"] = "Home Page";
 }
 
+<p class="lead">Eléments récents...</p>
+
 <div class="row">
-    <h3>Eléments récents...</h3>
     <div class="col-md-3">
-        <h4><a asp-controller="Comics" asp-action="Index">Bandes-dessinées</a></h4>        
+        <h4><a asp-controller="Comics" asp-action="Index">Bandes-dessinées</a></h4>
         <ul style="list-style:none;padding:0;">
             @foreach (var comic in ViewBag.LastComics)
             {
-            <li>                
-                <div class="card">
-                    <a asp-controller="Comics" asp-action="Details" asp-route-id="@comic.Id">
-                        <img src="@comic.CouvertureFileB64" />
-                        <div class="container">
-                            <h4><b>@comic.Title</b></h4>
+                <li>
+                    <div class="card">
+                        <a asp-controller="Comics" asp-action="Details" asp-route-id="@comic.Id">
+                            @if (comic.CouvertureFileId != null)
+                            {
+                                <img src="@Url.Action("Get", "Files", new { id = comic.CouvertureFileId })" />
+                            }
+                            <h4>@comic.Title</h4>
                             <p>@comic.Genre</p>
-                        </div>
-                    </a>
-                </div>                
-            </li>
+                        </a>
+                    </div>
+                </li>
             }
         </ul>
     </div>
     <div class="col-md-3">
         <h4><a asp-controller="Authors" asp-action="Index">Auteurs</a></h4>
-        <ul>
+        <ul style="list-style:none;padding:0;">
             @foreach (var author in ViewBag.LastAuthors)
             {
-                <li><a asp-controller="Authors" asp-action="Details" asp-route-id="@author.Id">@author.FullName</a></li>
+                <li>
+                    <div class="card">
+                        <a asp-controller="Authors" asp-action="Details" asp-route-id="@author.Id">
+                            @if (author.PhotoId != null)
+                            {
+                                <img src="@Url.Action("Get", "Files", new { id = author.PhotoId })" />
+                            }
+                            <h4>@author.FullName</h4>
+                        </a>
+                    </div>
+                </li>
             }
         </ul>
     </div>

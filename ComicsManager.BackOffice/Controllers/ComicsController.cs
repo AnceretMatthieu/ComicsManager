@@ -35,11 +35,14 @@ namespace ComicsManager.BackOffice.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             var comic = await _context.Comics
-                .Include(c => c.Couverture)
+                .Include(c => c.Scenariste)
+                .Include(c => c.Dessinateur)
+                .Include(c => c.Editeur)
+                .Include(c => c.Genre)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (comic == null)
             {
@@ -50,13 +53,7 @@ namespace ComicsManager.BackOffice.Controllers
             {
                 Comic = comic
             };
-
-            if (comic.Couverture != null)
-            {
-                string b64image = Convert.ToBase64String(comic.Couverture.Path);
-                vm.CouvertureFileB64 = string.Format("data:image/png;base64,{0}", b64image);
-            }
-
+            
             return View(vm);
         }
 
@@ -75,7 +72,7 @@ namespace ComicsManager.BackOffice.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(List<IFormFile> couvertureFile, [Bind("Title,ISBN,Cycle,Collection,Note,PublicationDate,Id,CreatedOn,ModifiedOn,GenreId")] Comic comic)
+        public async Task<IActionResult> Create(List<IFormFile> couvertureFile, [Bind("Title,ISBN,Cycle,Collection,Note,PublicationDate,Id,CreatedOn,ModifiedOn,GenreId,ScenaristeId,DessinateurId,EditorId")] Comic comic)
         {
             if (ModelState.IsValid)
             {
@@ -134,6 +131,11 @@ namespace ComicsManager.BackOffice.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.Authors = _context.Authors.ToList();
+            ViewBag.Editors = _context.Editors.ToList();
+            ViewBag.Genres = _context.Genres.ToList();
+
             return View(comic);
         }
 
@@ -142,7 +144,7 @@ namespace ComicsManager.BackOffice.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Title,ISBN,Cycle,Collection,Note,Couverture,PublicationDate,Id,CreatedOn,ModifiedOn,GenreId")] Comic comic)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Title,ISBN,Cycle,Collection,Note,CouvertureId,PublicationDate,Id,CreatedOn,ModifiedOn,GenreId,ScenaristeId,DessinateurId,EditorId")] Comic comic)
         {
             if (id != comic.Id)
             {
@@ -170,6 +172,7 @@ namespace ComicsManager.BackOffice.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+
             return View(comic);
         }
 
@@ -193,6 +196,37 @@ namespace ComicsManager.BackOffice.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Comics/DeleteCouverture/5
+        [HttpGet]
+        public async Task<IActionResult> DeleteCouverture(Guid? comicId, Guid? couvertureId)
+        {
+            if (comicId == Guid.Empty || couvertureId == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            var comic = await _context.Comics.SingleOrDefaultAsync(m => m.Id == comicId);
+            if (comic == null)
+            {
+                return NotFound();
+            }
+
+            var file = await _context.Files.SingleOrDefaultAsync(m => m.Id == couvertureId);
+            if (file == null)
+            {
+                return NotFound();
+            }
+
+            _context.Files.Remove(file);
+
+            comic.CouvertureId = null;
+            _context.Update(comic);
+
+            await _context.SaveChangesAsync();
+
+            return View(nameof(Edit), comic);
         }
 
         private bool ComicExists(Guid id)

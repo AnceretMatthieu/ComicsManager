@@ -10,6 +10,6 @@ namespace ComicsManager.BackOffice.ViewModels.Home
 
         public string Genre { get; set; }
 
-        public string CouvertureFileB64 { get; set; }
+        public Guid? CouvertureFileId { get; set; }
     }
 }

@@ -8,7 +8,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
@@ -25,10 +25,28 @@
                 <input asp-for="BirthDate" class="form-control" />
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Photo" class="control-label"></label>
-                <input asp-for="Photo" class="form-control" />
-                <span asp-validation-for="Photo" class="text-danger"></span>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label asp-for="Photo" class="control-label"></label>
+                    <input asp-for="Photo" type="file" name="photoFile" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    @if (Model.PhotoId != null)
+                    {
+                        <img src="@Url.Action("Get", "Files", new { id = Model.PhotoId })" style="max-width: 150px;">
+                        <button class="btn btn-default" 
+                                asp-controller="Authors" asp-action="DeletePhoto"
+                                asp-route-authorId="@Model.Id" asp-route-photoId="@Model.PhotoId"
+                                data-toggle="confirmation" 
+                                data-btn-ok-label="Valider" data-btn-ok-class="btn-success"
+                                data-btn-cancel-label="Annuler" data-btn-cancel-class="btn-danger"
+                                data-title="Confirmation de suppression" data-content="Etes-vous sur de vouloir supprimer cette photo ?"
+                                data-popout="true">
+                            Supprimer
+                        </button>
+                    }
+                </div>
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -44,4 +62,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $('[data-toggle=confirmation]').confirmation({
+          rootSelector: '[data-toggle=confirmation]',
+          // other options
+        });
+    </script>
 }

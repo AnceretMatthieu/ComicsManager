@@ -11,9 +11,10 @@ using System;
 namespace ComicsManager.Model.Migrations
 {
     [DbContext(typeof(ComicsManagerContext))]
-    partial class ComicsManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20180723090110_StoreAuthorPictureInFileTable")]
+    partial class StoreAuthorPictureInFileTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

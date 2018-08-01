@@ -1,72 +1,123 @@
 ﻿@model ComicsManager.BackOffice.ViewModels.ComicViewModel
 
-@{
-    ViewData["Title"] = "Details";
+<h2>@Model.Comic.Title</h2>
+<h5>Créée le @Model.Comic.CreatedOn.ToShortDateString() | Modifiée le @Model.Comic.ModifiedOn.ToString("dd/MM/yyyy à hh:mm")</h5>
+
+<div class="row">
+    <div class="col-md-3">
+        <!-- Photo de couverture-->
+        <img src="@Url.Action("Get", "Files", new { id = Model.Comic.CouvertureId })" style="max-width: 200px;">
+    </div>
+    <div class="col-md-6">
+        <!-- Informations sur le livre-->
+        <dl class="dl-horizontal">            
+            <dt>
+                @Html.DisplayNameFor(model => model.Comic.ISBN)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Comic.ISBN)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Comic.Cycle)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Comic.Cycle)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Comic.Collection)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Comic.Collection)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Comic.Note)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Comic.Note)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Comic.PublicationDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Comic.PublicationDate)
+            </dd>
+            <dt>
+                Genre
+            </dt>
+            <dd>
+                <a asp-controller="Genres" asp-action="Details" asp-route-id="@Model.Comic.GenreId">@Html.DisplayFor(model => model.Comic.Genre.Title)</a>                
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        @if (Model.Comic.Scenariste != null)
+        {
+            <h4><a asp-controller="Authors" asp-action="Details" asp-route-id="@Model.Comic.ScenaristeId">Scénariste</a></h4>
+            <img src="@Url.Action("Get", "Files", new { id = Model.Comic.Scenariste.PhotoId })" style="max-width: 100px;">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comic.Scenariste.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comic.Scenariste.FirstName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comic.Scenariste.LastName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comic.Scenariste.LastName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comic.Scenariste.BirthDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comic.Scenariste.BirthDate)
+                </dd>
+            </dl>
 }
 
-<h2>Details</h2>
+        @if (Model.Comic.Dessinateur != null)
+        {
+            <h4><a asp-controller="Authors" asp-action="Details" asp-route-id="@Model.Comic.DessinateurId">Dessinateur</a></h4>
+            <img src="@Url.Action("Get", "Files", new { id = Model.Comic.Dessinateur.PhotoId })" style="max-width: 100px;">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comic.Dessinateur.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comic.Dessinateur.FirstName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comic.Dessinateur.LastName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comic.Dessinateur.LastName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comic.Dessinateur.BirthDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comic.Dessinateur.BirthDate)
+                </dd>
+            </dl>
+        }
+
+        @if (Model.Comic.Editeur != null)
+        {
+            <h4><a asp-controller="Editors" asp-action="Details" asp-route-id="@Model.Comic.EditorId">Editeur</a></h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comic.Editeur.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Comic.Editeur.Name)
+                </dd>
+            </dl>
+        }
+    </div>
+</div>
 
 <div>
-    <h4>Comic</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comic.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.ISBN)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comic.ISBN)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.Cycle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comic.Cycle)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.Collection)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comic.Collection)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.Note)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comic.Note)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.Couverture)
-        </dt>
-        <dd>
-            <img style="max-width:100px;" src="@Model.CouvertureFileB64" />
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.PublicationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comic.PublicationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.CreatedOn)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comic.CreatedOn)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comic.ModifiedOn)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comic.ModifiedOn)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Comic.Id">Modifier</a> |
-    <a asp-action="Index">Retour à la liste</a>
+    <a asp-action="Edit" asp-route-id="@Model.Comic.Id" class="btn btn-default">Modifier</a> |
+    <a asp-action="Index" class="btn btn-default">Retour à la liste</a>
 </div>

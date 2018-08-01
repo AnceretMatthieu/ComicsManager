@@ -6,76 +6,69 @@
     <title>@ViewData["Title"] - ComicsManager.BackOffice</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/lib/dropzone/dist/dropzone.css" />
-        <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.css" />
-        <link rel="stylesheet" href="~/css/site.css" />        
+        <link rel="stylesheet" href="~/vendors/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/vendors/css/dropzone.min.css" />
+        <link rel="stylesheet" href="~/vendors/css/boostrap-select.min.css" />
+        <link rel="stylesheet" href="~/vendors/css/fontawesome-all.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/lib/dropzone/dist/dropzone.css" />
-        <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css" />
+        <link rel="stylesheet" href="~/vendors/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/vendors/css/dropzone.min.css" />
+        <link rel="stylesheet" href="~/vendors/css/boostrap-select.min.css" />
+        <link rel="stylesheet" href="~/vendors/css/fontawesome-all.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <span class="navbar-brand">ComicsManager</span>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
-                    <li><a asp-area="" asp-controller="Comics" asp-action="Index">Bandes-dessinées</a></li>
-                    <li><a asp-area="" asp-controller="Authors" asp-action="Index">Auteurs</a></li>
-                    <li><a asp-area="" asp-controller="Editors" asp-action="Index">Editeurs</a></li>
-                    <li><a asp-area="" asp-controller="Genres" asp-action="Index">Genres</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">A propos</a></li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <!-- TODO: Logo -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <!-- TODO: Menu en mode mobile -->
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Comics" asp-action="Index">Bandes-dessinées</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Authors" asp-action="Index">Auteurs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Editors" asp-action="Index">Editeurs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Genres" asp-action="Index">Genres</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="About">A propos</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Rechercher...">
+                <button class="btn btn-outline-default my-2 my-sm-0" type="submit">Rechercher</button>
+            </form>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - ComicsManager.BackOffice</p>
+            <p>&copy; 2018 - ComicsManager</p>
         </footer>
     </div>
 
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/lib/dropzone/dist/dropzone.js"></script>
-        <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.js"></script>
-        <script src="~/lib/bootstrap-select/dist/js/i18n/defaults-fr_FR.js"></script>
+        <script src="~/vendors/js/vendors.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/lib/dropzone/dist/dropzone.js"></script>
-        <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="~/lib/bootstrap-select/dist/js/i18n/defaults-fr_FR.min.js"></script>
+        <script src="~/vendors/js/vendors.min.js"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 

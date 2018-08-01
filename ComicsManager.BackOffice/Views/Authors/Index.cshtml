@@ -53,9 +53,9 @@
                     @Html.DisplayFor(modelItem => item.ModifiedOn)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" title="Details" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" title="Modifier" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="@item.Id" data-firstName="@item.FirstName" data-lastName="@item.LastName"><span class="glyphicon glyphicon-trash"></span></button>
+                    <a asp-action="Details" asp-route-id="@item.Id" title="Details" class="btn btn-default"><span class="fas fa-info-circle"></span></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" title="Modifier" class="btn btn-default"><span class="fas fa-edit"></span></a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="@item.Id" data-firstName="@item.FirstName" data-lastName="@item.LastName"><span class="fas fa-trash-alt"></span></button>
                 </td>
             </tr>
         }
@@ -71,7 +71,7 @@
             <div class="modal-footer">
                 <form asp-controller="Authors" asp-action="Delete" method="post" class="form-inline" role="form">
                     <input type="hidden" name="id" id="id">
-                    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash" style="vertical-align:middle;margin-top: -5px"></span> Supprimer</button>
+                    <button type="submit" class="btn btn-danger"><span class="fas fa-trash-alt" style="vertical-align:middle;margin-top: -5px"></span> Supprimer</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                 </form>
             </div>

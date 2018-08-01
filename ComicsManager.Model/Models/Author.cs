@@ -19,8 +19,9 @@ namespace ComicsManager.Model.Models
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
-        public string Photo { get; set; }
+        public Nullable<Guid> PhotoId { get; set; }
 
+        public File Photo { get; set; }
 
         [InverseProperty("Scenariste")]
         public ICollection<Comic> Scenaristes { get; set; }
